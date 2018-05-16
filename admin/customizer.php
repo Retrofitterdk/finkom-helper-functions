@@ -25,7 +25,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 				'label'          => __( 'Address', 'finkom_helper_functions' ),
 				'section'        => 'title_tagline',
 				'settings'       => 'woocommerce_store_address',
-				'priority'       => 51
+				'priority'       => 71
 			)
 			)
 		);
@@ -48,7 +48,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 					'label'          => __( 'Address2', 'finkom_helper_functions' ),
 					'section'        => 'title_tagline',
 					'settings'       => 'woocommerce_store_address_2',
-					'priority'       => 51
+					'priority'       => 72
 				)
 				)
 			);
@@ -72,7 +72,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 					'label'          => __( 'Zip', 'finkom_helper_functions' ),
 					'section'        => 'title_tagline',
 					'settings'       => 'woocommerce_store_postcode',
-					'priority'       => 52
+					'priority'       => 73
 				)
 				)
 			);
@@ -96,7 +96,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 						'label'          => __( 'City', 'finkom_helper_functions' ),
 						'section'        => 'title_tagline',
 						'settings'       => 'woocommerce_store_city',
-						'priority'       => 53
+						'priority'       => 74
 					)
 					)
 				);
@@ -120,7 +120,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 							'label'          => __( 'Country', 'finkom_helper_functions' ),
 							'section'        => 'title_tagline',
 							'settings'       => 'woocommerce_store_country',
-							'priority'       => 54
+							'priority'       => 75
 						)
 						)
 					);
@@ -144,7 +144,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 								'label'          => __( 'Phone', 'finkom_helper_functions' ),
 								'section'        => 'title_tagline',
 								'settings'       => 'woocommerce_store_phone',
-								'priority'       => 55
+								'priority'       => 76
 							)
 							)
 						);
@@ -166,7 +166,7 @@ function finkom_helper_functions_register_site_settings( $wp_customize ) {
 									'label'          => __( 'E-mail', 'finkom_helper_functions' ),
 									'section'        => 'title_tagline',
 									'settings'       => 'woocommerce_store_email',
-									'priority'       => 56
+									'priority'       => 77
 								)
 								)
 							);
