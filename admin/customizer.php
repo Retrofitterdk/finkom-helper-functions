@@ -1,4 +1,7 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 add_action( 'customize_register', 'finkom_helper_functions_register_site_settings' );
 
 // Add fields site identity section and new footer section in customizer
