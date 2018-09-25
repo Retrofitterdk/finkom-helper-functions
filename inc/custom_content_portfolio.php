@@ -83,21 +83,30 @@ function finkom_project_meta( $before = '', $after = '', $echo = true ) {
   if ( in_the_loop() && ccp_is_single_project() && ccp_is_project() && ! post_password_required() ) {
 
     $project_meta = '';
+    $project_meta .= ccp_get_project_client(     array( 'text' => esc_html__( 'Client: %s',    'finkom_helper_functions' ), 'wrap' => '<li %s>%s</li>' ) );
+    $project_meta .= ccp_get_project_location(   array( 'text' => esc_html__( 'Location: %s',  'finkom_helper_functions' ), 'wrap' => '<li %s>%s</li>' ) );
+    $project_meta .= ccp_get_project_start_date( array( 'text' => esc_html__( 'Started: %s',   'finkom_helper_functions' ), 'wrap' => '<li %s>%s</li>' ) );
+    $project_meta .= ccp_get_project_end_date(   array( 'text' => esc_html__( 'Completed: %s', 'finkom_helper_functions' ), 'wrap' => '<li %s>%s</li>' ) );
 
-    $project_meta .= $before;
+    $project_metalink = '';
+    $project_metalink .= ccp_get_project_link(       array( 'text' => esc_html__( 'Visit Project', 'finkom_helper_functions' ), 'before' => '<p>', 'after' => '</p>', 'wrap'    => '<a %s>%s</a>', ) );
 
-    $project_meta .= ccp_get_project_link(       array( 'text' => esc_html__( 'Visit Project', 'finkom_helper_functions' ), 'before' => '<li>', 'after' => '</li>' ) );
-    $project_meta .= ccp_get_project_client(     array( 'text' => esc_html__( 'Client: %s',    'finkom_helper_functions' ), 'before' => '<li>', 'after' => '</li>' ) );
-    $project_meta .= ccp_get_project_location(   array( 'text' => esc_html__( 'Location: %s',  'finkom_helper_functions' ), 'before' => '<li>', 'after' => '</li>' ) );
-    $project_meta .= ccp_get_project_start_date( array( 'text' => esc_html__( 'Started: %s',   'finkom_helper_functions' ), 'before' => '<li>', 'after' => '</li>' ) );
-    $project_meta .= ccp_get_project_end_date(   array( 'text' => esc_html__( 'Completed: %s', 'finkom_helper_functions' ), 'before' => '<li>', 'after' => '</li>' ) );
+    $project_metabox = '';
+    if ( $project_meta || $project_metalink ) :
+    $project_metabox .= '<div class="entry-meta">';
+    if ( $project_meta ) :
+      $project_metabox .= $before;
+      $project_metabox .= $project_meta;
+      $project_metabox .= $after;
+    endif;
+    $project_metabox .= $project_metalink;
+    $project_metabox .= '</div>';
+  endif;
 
-    $project_meta .= $after;
-
-    if ( $echo )
-        echo $project_meta;
+    if ( $echo && $project_metabox )
+    echo $project_metabox;
     else
-        return $project_meta;
+    return $project_meta;
   }
 }
 
