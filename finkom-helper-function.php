@@ -4,7 +4,7 @@
  * Description: Add functionality used in Finkom theme
  * Author: Steffen Bang Nielsen
  * Author URI: http://retrofitter.dk
- * Text Domain: prakmed_fields_taxonomies
+ * Text Domain: finkom_helper_functions
  * Version: 0.4
 
  */
@@ -21,7 +21,8 @@ function finkom_helper_functions_load_textdomain() {
 }
 
 // load includes
-require_once plugin_dir_path( __FILE__ ) . 'inc/display_contact_information.php';
+// require_once plugin_dir_path( __FILE__ ) . 'inc/display_contact_information.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/custom_content_portfolio.php';
 
 
 // load admin
