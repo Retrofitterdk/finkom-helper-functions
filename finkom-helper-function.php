@@ -23,6 +23,10 @@ function finkom_helper_functions_load_textdomain() {
 // load includes
 // require_once plugin_dir_path( __FILE__ ) . 'inc/display_contact_information.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/custom_content_portfolio.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/features.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/pages.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/team_members.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/portfolio-shortcode.php';
 
 
 // load admin
