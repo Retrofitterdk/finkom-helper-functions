@@ -25,25 +25,25 @@ if (class_exists ('CCP_Plugin')) {
     if ($col > 1) {
       $layout = ' is-grid';
     }
-    $html .= '<ul class="projects' . $layout . ' columns-' . $col . '">' . "\n";
+    $html .= '<div class="projects-content' . $layout . ' columns-' . $col . '">' . "\n";
 
 
 
     while ( $loop->have_posts() ) :
 
       $loop->the_post();
-      $content .= '<li>';
-      $content .= '<a class="post-thumbnail" href="' . get_the_permalink() . '" aria-hidden="true">';
+      $content .= '<article id="post-' . get_the_ID() . '"' . get_post_class() . '>';
+      $content .= '<div class="entry-media"><a class="post-thumbnail" href="' . get_the_permalink() . '" aria-hidden="true">';
       $content .= get_the_post_thumbnail( $post->ID, $attr['size'], array('alt' => the_title_attribute( array('echo' => false))));
-      $content .= '</a>';
-      $content .= '<a href="' . get_the_permalink() . '" title="' . the_title_attribute( array('echo' => false)) . '"><h3 class="project-title">' . get_the_title() . '</h3></a>';
-      $content .= '<p class"project-content">' . get_the_excerpt() . '</p>';
-      $content .= '<a href="' . get_the_permalink() . '" title="' . the_title_attribute( array('echo' => false)) . '"><p class="project-link">' . __( 'Continue reading', 'finkom_helper_functions' ) . '</p></a>';
-      $content .= '</li>';
+      $content .= '</a></div>';
+      $content .= '<header class="entry-header"><a href="' . get_the_permalink() . '" title="' . the_title_attribute( array('echo' => false)) . '"><h3 class="entry-title">' . get_the_title() . '</h3></a></header>';
+      $content .= '<div class="entry-summary"><p>' . get_the_excerpt() . '</p></div>';
+      $content .= '<a href="' . get_the_permalink() . '" title="' . the_title_attribute( array('echo' => false)) . '"><p class="entry-link">' . __( 'Continue reading', 'finkom_helper_functions' ) . '</p></a>';
+      $content .= '</article>';
 
     endwhile;
     $html .= $content;
-    $html .= '</ul><!--/.features-->' . "\n";
+    $html .= '</div><!--/.projects-contents-->' . "\n";
     $html .= $attr['after'] . "\n";
     wp_reset_postdata();
 
