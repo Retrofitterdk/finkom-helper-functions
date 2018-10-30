@@ -110,5 +110,29 @@ function finkom_project_meta( $before = '', $after = '', $echo = true ) {
     return $project_meta;
   }
 }
+if ( ! function_exists( 'finkom_project_terms' ) ) :
+function finkom_project_terms () {
 
+  	/**
+  	* Prints HTML with meta information for the project categories and project tags.
+  	*/
+  		// Hide category and tag text for pages.
+  		if ( 'project' === get_post_type() ) {
+  			/* translators: used between list items, there is a space after the comma */
+  			$categories_list = get_the_term_list( $post->ID, 'project_category', '<span class="label">' . esc_html__( 'Categories', 'finkom_helper_functions') . ': </span>', esc_html__( ', ', 'list item separator', 'finkom_helper_functions' ) );
+  			if ( $categories_list ) {
+  				/* translators: 1: list of categories. */
+  				printf( '<div class="cat-links">' . esc_html__( '%1$s', 'finkom_helper_functions' ) . '</div>', $categories_list ); // WPCS: XSS OK.
+  			}
+
+  			/* translators: used between list items, there is a space after the comma */
+  			$tags_list = get_the_term_list( $post->ID, 'project_tag', '<span class="label">' . esc_html__( 'Tags', 'finkom_helper_functions') . ': </span>', esc_html__( ', ', 'list item separator', 'finkom_helper_functions' ) );
+  			if ( $tags_list ) {
+  				/* translators: 1: list of tags. */
+  				printf( '<div class="tags-links">' . esc_html__( '%1$s', 'finkom_helper_functions' ) . '</div>', $tags_list ); // WPCS: XSS OK.
+  			}
+  		}
+
+}
+endif;
 ?>

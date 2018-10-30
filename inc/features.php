@@ -36,7 +36,6 @@ function change_woothemes_features_archive_slug($single_slug) {
 add_filter('woothemes_features_archive_slug', 'change_woothemes_features_archive_slug');
 
 # Filter the post type archive title.
-// add_filter( 'post_type_archive_title', 'ccp_post_type_archive_title', 5, 2 );
 
 function fhf_feature_archive_title($title) {
   $newTitle = fhf_feature_get_title_setting();
@@ -60,3 +59,23 @@ function fhf_feature_archive_description($description) {
   return $description;
 }
 add_filter( 'get_the_post_type_description', 'fhf_feature_archive_description' );
+
+if ( ! function_exists( 'finkom_project_terms' ) ) :
+function finkom_feature_terms () {
+
+  	/**
+  	* Prints HTML with meta information for the project categories and project tags.
+  	*/
+  		// Hide category and tag text for pages.
+  		if ( 'feature' === get_post_type() ) {
+  			/* translators: used between list items, there is a space after the comma */
+  			$categories_list = get_the_term_list( $post->ID, 'feature-category', '<span class="label">' . esc_html__( 'Categories', 'finkom_helper_functions') . ': </span>', esc_html__( ', ', 'list item separator', 'finkom_helper_functions' ) );
+  			if ( $categories_list ) {
+  				/* translators: 1: list of categories. */
+  				printf( '<div class="cat-links">' . esc_html__( '%1$s', 'finkom_helper_functions' ) . '</div>', $categories_list ); // WPCS: XSS OK.
+  			}
+  		}
+
+}
+endif;
+?>
