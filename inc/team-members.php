@@ -16,6 +16,27 @@ function members_make_restful($args) {
 
 add_filter('woothemes_our_team_post_type_args', 'members_make_restful');
 
+// add support for excerpt for team members
+add_post_type_support( 'team-member', 'excerpt' );
+
+/**
+* Add REST API support to the Team Member category.
+*/
+function finkom_team_member_category_rest_support() {
+  global $wp_taxonomies;
+
+  //be sure to set this to the name of your taxonomy!
+  $taxonomy_name = 'team-member-category';
+
+  if ( isset( $wp_taxonomies[ $taxonomy_name ] ) ) {
+    $wp_taxonomies[ $taxonomy_name ]->show_in_rest = true;
+
+  }
+}
+
+add_action( 'init', 'finkom_team_member_category_rest_support', 25 );
+
+
 function change_woothemes_team_members_single_slug($single_slug) {
 	$single_slug = _x( 'partner', 'single post url slug', 'finkom_helper_functions' );
 
@@ -52,3 +73,65 @@ function fhf_team_archive_description($description) {
   return $description;
 }
 add_filter( 'get_the_post_type_description', 'fhf_team_archive_description' );
+
+// disable meta fields
+add_filter( 'woothemes_our_team_member_role', '__return_false' );
+add_filter( 'woothemes_our_team_member_user_search', '__return_false' );
+
+function finkom_team_member_more_fields( $fields ) {
+    $fields['linkedin'] = array(
+        'name' => __( 'Linkedin', 'finkom_helper_functions' ),
+        'description' => __( 'Enter the URL for this team member\'s Linkedin page (for example: https://www.linkedin.com/in/barackobama/).', 'finkom_helper_functions' ),
+        'type' => 'text',
+        'default' => '',
+        'section' => 'info'
+    );
+
+    $fields['facebook'] = array(
+        'name' => __( 'Facebook', 'finkom_helper_functions' ),
+        'description' => __( 'Enter the URL for this team member\'s Facebook page (for example: https://da-dk.facebook.com/zuck/).', 'finkom_helper_functions' ),
+        'type' => 'text',
+        'default' => '',
+        'section' => 'info'
+    );
+
+    $fields['instagram'] = array(
+        'name' => __( 'Instagram', 'finkom_helper_functions' ),
+        'description' => __( 'Enter the URL for this team member\'s Instagram page (for example: https://www.instagram.com/kimkardashian/).', 'finkom_helper_functions' ),
+        'type' => 'text',
+        'default' => '',
+        'section' => 'info'
+    );
+
+    $fields['pinterest'] = array(
+        'name' => __( 'Pinterest', 'finkom_helper_functions' ),
+        'description' => __( 'Enter the URL for this team member\'s Pinterest page (for example: https://www.pinterest.dk/ohjoy/).', 'finkom_helper_functions' ),
+        'type' => 'text',
+        'default' => '',
+        'section' => 'info'
+    );
+
+
+    return $fields;
+}
+add_filter( 'woothemes_our_team_member_fields', 'finkom_team_member_more_fields' );
+
+
+if ( ! function_exists( 'finkom_team_member_terms' ) ) :
+function finkom_team_member_terms () {
+  global $post;
+  	/**
+  	* Prints HTML with meta information for the project categories and project tags.
+  	*/
+  		// Hide category and tag text for pages.
+  		if ( 'team-member' === get_post_type() ) {
+  			/* translators: used between list items, there is a space after the comma */
+  			$categories_list = get_the_term_list( $post->ID, 'team-member-category', '<span class="label">' . esc_html__( 'Categories', 'finkom_helper_functions') . ': </span>', esc_html__( ', ', 'list item separator', 'finkom_helper_functions' ) );
+  			if ( $categories_list ) {
+  				/* translators: 1: list of categories. */
+  				printf( '<div class="cat-links">' . esc_html__( '%1$s', 'finkom_helper_functions' ) . '</div>', $categories_list ); // WPCS: XSS OK.
+  			}
+  		}
+
+}
+endif;

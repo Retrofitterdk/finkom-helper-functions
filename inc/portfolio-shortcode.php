@@ -3,7 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 function finkom_projects_shortcode_template( $query_args, $attr ) {
 
-  $query_args['post_type'] = finkom_ccp_portfolio_posttype($portfolio_posttype);
+  $query_args['post_type'] = 'project';
+
+
+  // $query_args['post_type'] = finkom_ccp_portfolio_posttype($portfolio_posttype);
 
   $loop = new WP_Query( $query_args );
 
@@ -28,9 +31,9 @@ function finkom_projects_shortcode_template( $query_args, $attr ) {
 
 
   while ( $loop->have_posts() ) :
-
+    global $post;
     $loop->the_post();
-    $content .= '<article id="post-' . get_the_ID() . '"' . get_post_class() . '>';
+    $content .= '<article id="post-' . get_the_ID() . '" class="project">';
     if ( has_post_thumbnail() ) {
     $content .= '<div class="entry-media"><a class="post-thumbnail" href="' . get_the_permalink() . '" aria-hidden="true">';
     $content .= get_the_post_thumbnail( $post->ID, $attr['size'], array('alt' => the_title_attribute( array('echo' => false))));
