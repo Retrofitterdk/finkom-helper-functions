@@ -28,9 +28,9 @@ function finkom_member_shortcode_template( $query_args, $attr ) {
 
 
   while ( $loop->have_posts() ) :
-
+    global $post;
     $loop->the_post();
-    $content .= '<article id="post-' . get_the_ID() . '"' . get_post_class() . '>';
+    $content .= '<article id="post-' . get_the_ID() . '" class="team-member">';
     $content .= '<div class="entry-media"><a class="post-thumbnail" href="' . get_the_permalink() . '" aria-hidden="true">';
     $content .= get_the_post_thumbnail( $post->ID, $attr['size'], array('alt' => the_title_attribute( array('echo' => false))));
     $content .= '</a></div>';

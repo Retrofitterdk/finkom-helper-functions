@@ -18,6 +18,26 @@ function features_make_hierarchical_restful($args) {
 
 add_filter('woothemes_features_post_type_args', 'features_make_hierarchical_restful');
 
+// add support for excerpt for features
+add_post_type_support( 'feature', 'excerpt' );
+
+
+/**
+* Add REST API support to the Team Member category.
+*/
+function finkom_feature_category_rest_support() {
+  global $wp_taxonomies;
+
+  //be sure to set this to the name of your taxonomy!
+  $taxonomy_name = 'feature-category';
+
+  if ( isset( $wp_taxonomies[ $taxonomy_name ] ) ) {
+    $wp_taxonomies[ $taxonomy_name ]->show_in_rest = true;
+
+  }
+}
+
+add_action( 'init', 'finkom_feature_category_rest_support', 25 );
 
 
 function change_woothemes_features_single_slug($single_slug) {
@@ -36,7 +56,6 @@ function change_woothemes_features_archive_slug($single_slug) {
 add_filter('woothemes_features_archive_slug', 'change_woothemes_features_archive_slug');
 
 # Filter the post type archive title.
-// add_filter( 'post_type_archive_title', 'ccp_post_type_archive_title', 5, 2 );
 
 function fhf_feature_archive_title($title) {
   $newTitle = fhf_feature_get_title_setting();
@@ -60,3 +79,23 @@ function fhf_feature_archive_description($description) {
   return $description;
 }
 add_filter( 'get_the_post_type_description', 'fhf_feature_archive_description' );
+
+if ( ! function_exists( 'finkom_feature_terms' ) ) :
+function finkom_feature_terms () {
+  global $post;
+  	/**
+  	* Prints HTML with meta information for the project categories and project tags.
+  	*/
+  		// Hide category and tag text for pages.
+  		if ( 'feature' === get_post_type() ) {
+  			/* translators: used between list items, there is a space after the comma */
+  			$categories_list = get_the_term_list( $post->ID, 'feature-category', '<span class="label">' . esc_html__( 'Categories', 'finkom_helper_functions') . ': </span>', esc_html__( ', ', 'list item separator', 'finkom_helper_functions' ) );
+  			if ( $categories_list ) {
+  				/* translators: 1: list of categories. */
+  				printf( '<div class="cat-links">' . esc_html__( '%1$s', 'finkom_helper_functions' ) . '</div>', $categories_list ); // WPCS: XSS OK.
+  			}
+  		}
+
+}
+endif;
+?>
