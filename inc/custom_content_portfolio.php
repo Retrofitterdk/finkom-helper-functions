@@ -112,7 +112,7 @@ function finkom_project_meta( $before = '', $after = '', $echo = true ) {
 }
 if ( ! function_exists( 'finkom_project_terms' ) ) :
 function finkom_project_terms () {
-  global $post;
+
   	/**
   	* Prints HTML with meta information for the project categories and project tags.
   	*/
