@@ -18,6 +18,26 @@ function features_make_hierarchical_restful($args) {
 
 add_filter('woothemes_features_post_type_args', 'features_make_hierarchical_restful');
 
+// add support for excerpt for features
+add_post_type_support( 'feature', 'excerpt' );
+
+
+/**
+* Add REST API support to the Team Member category.
+*/
+function finkom_feature_category_rest_support() {
+  global $wp_taxonomies;
+
+  //be sure to set this to the name of your taxonomy!
+  $taxonomy_name = 'feature-category';
+
+  if ( isset( $wp_taxonomies[ $taxonomy_name ] ) ) {
+    $wp_taxonomies[ $taxonomy_name ]->show_in_rest = true;
+
+  }
+}
+
+add_action( 'init', 'finkom_feature_category_rest_support', 25 );
 
 
 function change_woothemes_features_single_slug($single_slug) {
@@ -60,9 +80,9 @@ function fhf_feature_archive_description($description) {
 }
 add_filter( 'get_the_post_type_description', 'fhf_feature_archive_description' );
 
-if ( ! function_exists( 'finkom_project_terms' ) ) :
+if ( ! function_exists( 'finkom_feature_terms' ) ) :
 function finkom_feature_terms () {
-
+  global $post;
   	/**
   	* Prints HTML with meta information for the project categories and project tags.
   	*/
